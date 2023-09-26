@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block main %}
+<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+
+
+<br><br><br>
+<form method="POST" style="padding-left: 5px;">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Ingresar">
+</form>
+<br>
+<div style="padding-left: 5px;">
+Si aun no tenes usuario <a href="{% url 'signup' %}">registrate aca</a>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

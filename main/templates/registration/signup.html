@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block main %}
+
+<br><br><br>
+<form method="POST" style="padding-left: 10px;">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Registrarme">
+</form>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

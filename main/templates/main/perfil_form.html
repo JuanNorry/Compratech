@@ -1,0 +1,17 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block main %}
+<br><br>
+<div style="margin-top:40px">
+<h1 style="padding-left: 10px;">Datos de personales</h1>
+<br>
+<form method="post" enctype="multipart/form-data" style="padding-left: 10px;" >
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Editar Perfil">
+</form>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

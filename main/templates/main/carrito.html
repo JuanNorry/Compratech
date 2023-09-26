@@ -1,0 +1,65 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block main %}
+<div class="alert alert-light" role="alert">
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="row" colspan="2" class="text-center">CARRITO</th>
+        </tr>
+        <tr>
+            <th scope="col">PRODUCTO</th>
+            <th scope="col">PRECIO</th>
+            <th scope="col">CANTIDAD</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if request.session.carrito.items %}
+        {% for key, value in request.session.carrito.items %}
+            <tr>
+                <td>{{value.producto}}</td>
+                <td>{{value.precio}}</td>
+                <td>{{value.acumulado}}
+                    {% if value.stock > value.cantidad %}
+                        <a href="{% url 'Add' value.componente_id %}" class="badge btn btn-dark badge-dark">+</a>
+                    {{value.cantidad}}
+                        <a href="{% url 'Sub' value.componente_id %}" class="badge btn btn-dark badge-dark">-</a>
+                    {% else %}
+                        <a href="{% url 'Sub' value.componente_id %}" class="badge btn btn-dark badge-dark">-</a>
+                        {{value.cantidad}}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">
+                <div class="alert alert-dark text-center">Sin Productos</div>
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th scope="row">Total:</th>
+            <td colspan="2">$ {{total_carrito}}</td>
+        </tr>
+    </tbody>
+</table>
+<hr>
+</div>
+<br>
+{% if user.perfil %}
+<div style="padding-left: 10px;">
+    <p>Por favor, antes de realizar la compra revisá que tus datos de envío sean correctos</p>
+    <a href="{% url 'perfil-update' user.perfil.id %}" class="btn btn-secondary">Datos de Envío</a></div>
+</div>
+{% endif %}
+<br><br>
+<div class="row text-center">
+    <div class="col-6"><a href="{% url 'CLS' %}" class="btn btn-danger">Limpiar carrito</a></div>
+    <div class="col-6"><a href="#" class="btn btn-success">Comprar</a></div>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

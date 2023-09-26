@@ -1,0 +1,47 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block main %}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-0">
+    </div>
+  </section>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+    {% if not componentes %}
+        <h1>Aun no hay publicaciones</h1>
+    {% endif %}
+
+    {% for componente in componentes %}
+        <div class="col">
+        <div class="card shadow-sm">
+            <img class="card-img-top" style="height: 300px; width: 100%; display: block;" src="{{componente.imagen_url}}" data-holder-rendered="true">
+            <div class="card-body">
+            <p class="card-text">{{componente.producto}} <br> {{componente.categoria}} <br> {{componente.detail}} </p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{% url 'componente-detail' componente.id %}" type="button" class="btn btn-sm btn-outline-secondary">Detalle</a>
+                {% if user.is_authenticated and user.id == componente.publisher.id %}               
+                    <a href="{% url 'componente-update' componente.id %}" type="button" class="btn btn-sm btn-outline-secondary">Editar</a>
+                    <a href="{% url 'componente-delete' componente.id %}" type="button" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                {% endif %}
+                </div>
+                <small class="text-body-secondary">${{componente.precio}}</small>
+            </div>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+    
+</div>
+   
+<br><br><br><br><br>
+{% endblock %}

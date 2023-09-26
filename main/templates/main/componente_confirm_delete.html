@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block main %}
+<br><br><br>
+<h3>Estas seguro de borrar la Publicacion?</h3>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-primary" type="submit" value="Borrar">
+    <a class="btn btn-primary" href="{% url 'componente-list' %}">Cancelar</a>
+</form>
+{% endblock %}
