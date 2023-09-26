@@ -14,7 +14,7 @@
 
 
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
 
     {% if not componentes %}
         <h1>Aun no hay publicaciones</h1>
@@ -22,8 +22,8 @@
 
     {% for componente in componentes %}
         <div class="col">
-        <div class="card shadow-sm">
-            <img class="card-img-top" style="height: 300px; width: 100%; display: block;" src="{{componente.imagen_url}}" data-holder-rendered="true">
+        <div class="card card w-85 mb-5">
+            <img class="card-img-top" style="height: 275px; width: 100%; display: block;" src="{{componente.imagen_url}}" data-holder-rendered="true">
             <div class="card-body">
             <p class="card-text">{{componente.producto}} <br> {{componente.categoria}} <br> {{componente.detail}} </p>
             <div class="d-flex justify-content-between align-items-center">

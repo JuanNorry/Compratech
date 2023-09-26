@@ -7,7 +7,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from django.http import HttpResponse
+import requests
+import json
 
 def index(request):
     componentes = Componente.objects.all()
@@ -122,3 +124,43 @@ def limpiar_carrito(request):
     carrito = Carrito(request)
     carrito.limpiar()
     return redirect("carro")
+
+
+client_id = 'TEST-3c61abc0-33d7-477b-a92f-7932cd05fb78'
+client_secret = 'TEST-839647108512701-092615-2b79ab3fdec2c37df347dc7bcadaf29b-265252285'
+
+def obtener_token():
+    url = 'https://api.mercadopago.com/oauth/token'
+    data = {
+        'grant_type': 'client_credentials',
+        'client_id': client_id,
+        'client_secret': client_secret
+    }
+    response = requests.post(url, data=data)
+    token_data = response.json()
+    return token_data['access_token']
+
+def crear_pago(access_token):
+    url = 'https://api.mercadopago.com/checkout/preferences'
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'application/json'
+    }
+    payload = {
+        'items': [
+            {
+                'title': 'Producto de prueba',
+                'quantity': 1,
+                'currency_id': 'ARS',
+                'unit_price': 100.00
+            }
+        ]
+    }
+    response = requests.post(url, headers=headers, json=payload)
+    pago_data = response.json()
+    return pago_data
+
+def iniciar_pago(request):
+    access_token = obtener_token()
+    pago = crear_pago(access_token)
+    return render(request, 'pago.html', {'redirect_url': pago['init_point']})
