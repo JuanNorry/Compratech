@@ -18,7 +18,7 @@ from django.urls import path
 from main.views import (index, ComponenteList, ComponenteMineList, ComponenteUpdate, 
                                  ComponenteDelete, ComponenteDetail, ComponenteCreate, ComponenteSearch,
                                  PerfilCreate, PerfilUpdate, Login, SignUp, Logout, Carro, 
-                                 agregar_componente, eliminar_componente, limpiar_carrito, restar_componente, iniciar_pago )
+                                 agregar_componente, eliminar_componente, limpiar_carrito, restar_componente,)
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -42,7 +42,6 @@ urlpatterns = [
     path('carrito/<int:componente_id>/eliminar', eliminar_componente, name="Del"),
     path('carrito/<int:componente_id>/restar', restar_componente, name="Sub"),
     path('carrito/limpiar', limpiar_carrito, name="CLS"),
-    path('iniciar_pago/', iniciar_pago, name='iniciar_pago'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
